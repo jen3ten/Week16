@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Schools App";
+}
+
+<div class="jumbotron">
+    <h1>SCHOOLS APP</h1>
+    <p class="lead">The Schools App is a list of schools and students at each school.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Schools</h2>
+        <p>
+            Add, view, edit, and delete schools here.
+        </p>
+        <p>@Html.ActionLink("Schools", "Index", "tblSchools")</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Students</h2>
+        <p>Add, view, edit, and delete students here.</p>
+        <p>@Html.ActionLink("Students", "Index", "tblStudents")></p>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
