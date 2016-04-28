@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DriversDBModelStoreContainer" CdmEntityContainer="DriversDBEntities">
+    <EntitySetMapping Name="Cars">
+      <EntityTypeMapping TypeName="DriversDBModel.Car">
+        <MappingFragment StoreEntitySet="Cars">
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="Make" ColumnName="Make" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="LicensePlate" ColumnName="LicensePlate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarUsers">
+      <EntityTypeMapping TypeName="DriversDBModel.CarUser">
+        <MappingFragment StoreEntitySet="CarUsers">
+          <ScalarProperty Name="CarUseID" ColumnName="CarUseID" />
+          <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drivers">
+      <EntityTypeMapping TypeName="DriversDBModel.Driver">
+        <MappingFragment StoreEntitySet="Drivers">
+          <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="LicenseNum" ColumnName="LicenseNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

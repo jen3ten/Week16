@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DriversDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="CarID" />
+    </Key>
+    <Property Name="CarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Make" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="LicensePlate" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="CarUsers">
+    <Key>
+      <PropertyRef Name="CarUseID" />
+    </Key>
+    <Property Name="CarUseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DriverID" Type="int" Nullable="false" />
+    <Property Name="CarID" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Drivers">
+    <Key>
+      <PropertyRef Name="DriverID" />
+    </Key>
+    <Property Name="DriverID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="LicenseNum" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK_CarUsers_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+    <End Role="CarUsers" Type="Self.CarUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="CarUsers">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarUsers_Drivers">
+    <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+    <End Role="CarUsers" Type="Self.CarUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drivers">
+        <PropertyRef Name="DriverID" />
+      </Principal>
+      <Dependent Role="CarUsers">
+        <PropertyRef Name="DriverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DriversDBModelStoreContainer">
+    <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarUsers" EntityType="Self.CarUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CarUsers_Cars" Association="Self.FK_CarUsers_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarUsers" EntitySet="CarUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarUsers_Drivers" Association="Self.FK_CarUsers_Drivers">
+      <End Role="Drivers" EntitySet="Drivers" />
+      <End Role="CarUsers" EntitySet="CarUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

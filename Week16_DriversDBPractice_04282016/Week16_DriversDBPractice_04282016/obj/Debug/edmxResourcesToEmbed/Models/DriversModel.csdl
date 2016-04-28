@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DriversDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="CarID" />
+    </Key>
+    <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="LicensePlate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CarUsers" Relationship="Self.FK_CarUsers_Cars" FromRole="Cars" ToRole="CarUsers" />
+  </EntityType>
+  <EntityType Name="CarUser">
+    <Key>
+      <PropertyRef Name="CarUseID" />
+    </Key>
+    <Property Name="CarUseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DriverID" Type="Int32" Nullable="false" />
+    <Property Name="CarID" Type="Int32" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_CarUsers_Cars" FromRole="CarUsers" ToRole="Cars" />
+    <NavigationProperty Name="Driver" Relationship="Self.FK_CarUsers_Drivers" FromRole="CarUsers" ToRole="Drivers" />
+  </EntityType>
+  <EntityType Name="Driver">
+    <Key>
+      <PropertyRef Name="DriverID" />
+    </Key>
+    <Property Name="DriverID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="LicenseNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CarUsers" Relationship="Self.FK_CarUsers_Drivers" FromRole="Drivers" ToRole="CarUsers" />
+  </EntityType>
+  <Association Name="FK_CarUsers_Cars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="1" />
+    <End Role="CarUsers" Type="Self.CarUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="CarUsers">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarUsers_Drivers">
+    <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+    <End Role="CarUsers" Type="Self.CarUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drivers">
+        <PropertyRef Name="DriverID" />
+      </Principal>
+      <Dependent Role="CarUsers">
+        <PropertyRef Name="DriverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DriversDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cars" EntityType="Self.Car" />
+    <EntitySet Name="CarUsers" EntityType="Self.CarUser" />
+    <EntitySet Name="Drivers" EntityType="Self.Driver" />
+    <AssociationSet Name="FK_CarUsers_Cars" Association="Self.FK_CarUsers_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarUsers" EntitySet="CarUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarUsers_Drivers" Association="Self.FK_CarUsers_Drivers">
+      <End Role="Drivers" EntitySet="Drivers" />
+      <End Role="CarUsers" EntitySet="CarUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

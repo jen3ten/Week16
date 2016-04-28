@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DriversDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Make" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="LicensePlate" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CarUsers">
+          <Key>
+            <PropertyRef Name="CarUseID" />
+          </Key>
+          <Property Name="CarUseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverID" Type="int" Nullable="false" />
+          <Property Name="CarID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="DriverID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="LicenseNum" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_CarUsers_Cars">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="CarUsers" Type="Self.CarUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="CarUsers">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarUsers_Drivers">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="CarUsers" Type="Self.CarUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="CarUsers">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DriversDBModelStoreContainer">
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarUsers" EntityType="Self.CarUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CarUsers_Cars" Association="Self.FK_CarUsers_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="CarUsers" EntitySet="CarUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarUsers_Drivers" Association="Self.FK_CarUsers_Drivers">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="CarUsers" EntitySet="CarUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DriversDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="LicensePlate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CarUsers" Relationship="Self.FK_CarUsers_Cars" FromRole="Cars" ToRole="CarUsers" />
+        </EntityType>
+        <EntityType Name="CarUser">
+          <Key>
+            <PropertyRef Name="CarUseID" />
+          </Key>
+          <Property Name="CarUseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverID" Type="Int32" Nullable="false" />
+          <Property Name="CarID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_CarUsers_Cars" FromRole="CarUsers" ToRole="Cars" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_CarUsers_Drivers" FromRole="CarUsers" ToRole="Drivers" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="DriverID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="LicenseNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CarUsers" Relationship="Self.FK_CarUsers_Drivers" FromRole="Drivers" ToRole="CarUsers" />
+        </EntityType>
+        <Association Name="FK_CarUsers_Cars">
+          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
+          <End Role="CarUsers" Type="Self.CarUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="CarUsers">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarUsers_Drivers">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+          <End Role="CarUsers" Type="Self.CarUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="CarUsers">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DriversDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="CarUsers" EntityType="Self.CarUser" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <AssociationSet Name="FK_CarUsers_Cars" Association="Self.FK_CarUsers_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="CarUsers" EntitySet="CarUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarUsers_Drivers" Association="Self.FK_CarUsers_Drivers">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="CarUsers" EntitySet="CarUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DriversDBModelStoreContainer" CdmEntityContainer="DriversDBEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="DriversDBModel.Car">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="LicensePlate" ColumnName="LicensePlate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarUsers">
+            <EntityTypeMapping TypeName="DriversDBModel.CarUser">
+              <MappingFragment StoreEntitySet="CarUsers">
+                <ScalarProperty Name="CarUseID" ColumnName="CarUseID" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="DriversDBModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="LicenseNum" ColumnName="LicenseNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
