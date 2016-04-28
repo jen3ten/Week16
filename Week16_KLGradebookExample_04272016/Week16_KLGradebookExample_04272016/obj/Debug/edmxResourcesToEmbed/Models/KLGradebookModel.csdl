@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KLGradebookDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Assignment">
+    <Key>
+      <PropertyRef Name="AssignmentID" />
+    </Key>
+    <Property Name="AssignmentID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PointsAvailable" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="StudentAssignmentGrades" Relationship="Self.FK_StudentAssignmentGrades_Assignments" FromRole="Assignments" ToRole="StudentAssignmentGrades" />
+  </EntityType>
+  <EntityType Name="StudentAssignmentGrade">
+    <Key>
+      <PropertyRef Name="StudentID" />
+      <PropertyRef Name="AssignmentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="AssignmentID" Type="Int32" Nullable="false" />
+    <Property Name="PointsAwarded" Type="Int32" Nullable="false" />
+    <Property Name="Grade" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Assignment" Relationship="Self.FK_StudentAssignmentGrades_Assignments" FromRole="StudentAssignmentGrades" ToRole="Assignments" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_StudentAssignmentGrades_Students" FromRole="StudentAssignmentGrades" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="StudentAssignmentGrades" Relationship="Self.FK_StudentAssignmentGrades_Students" FromRole="Students" ToRole="StudentAssignmentGrades" />
+  </EntityType>
+  <Association Name="FK_StudentAssignmentGrades_Assignments">
+    <End Role="Assignments" Type="Self.Assignment" Multiplicity="1" />
+    <End Role="StudentAssignmentGrades" Type="Self.StudentAssignmentGrade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Assignments">
+        <PropertyRef Name="AssignmentID" />
+      </Principal>
+      <Dependent Role="StudentAssignmentGrades">
+        <PropertyRef Name="AssignmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentAssignmentGrades_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="1" />
+    <End Role="StudentAssignmentGrades" Type="Self.StudentAssignmentGrade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="StudentAssignmentGrades">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KLGradebookDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Assignments" EntityType="Self.Assignment" />
+    <EntitySet Name="StudentAssignmentGrades" EntityType="Self.StudentAssignmentGrade" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <AssociationSet Name="FK_StudentAssignmentGrades_Assignments" Association="Self.FK_StudentAssignmentGrades_Assignments">
+      <End Role="Assignments" EntitySet="Assignments" />
+      <End Role="StudentAssignmentGrades" EntitySet="StudentAssignmentGrades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentAssignmentGrades_Students" Association="Self.FK_StudentAssignmentGrades_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="StudentAssignmentGrades" EntitySet="StudentAssignmentGrades" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
