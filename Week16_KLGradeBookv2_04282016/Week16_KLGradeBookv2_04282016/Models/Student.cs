@@ -11,9 +11,14 @@ namespace Week16_KLGradeBookv2_04282016.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [DisplayColumn("LastName")]
+    [MetadataType(typeof(StudentMetaData))]
+
     public partial class Student
     {
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Student()
         {
@@ -21,6 +26,7 @@ namespace Week16_KLGradeBookv2_04282016.Models
         }
     
         public int StudentID { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
     
