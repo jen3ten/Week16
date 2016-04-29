@@ -20,7 +20,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+
+@foreach (var item in Model.OrderBy(t => t.LastName).ThenBy(t=>t.FirstName)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)

@@ -12,33 +12,41 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PointsEarned)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Grade1)
+            @Html.DisplayNameFor(model => model.Student.LastName), @Html.DisplayNameFor(model => model.Student.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Assignment.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Student.FirstName)
+            @Html.DisplayNameFor(model => model.PointsEarned)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assignment.PossiblePoints)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grade1)
+        </th>
+
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PointsEarned)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Grade1)
+            @Html.DisplayFor(modelItem => item.Student.LastName), @Html.DisplayFor(modelItem => item.Student.FirstName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Assignment.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Student.FirstName)
+            @Html.DisplayFor(modelItem => item.PointsEarned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assignment.PossiblePoints)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grade1)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.GradeID }) |

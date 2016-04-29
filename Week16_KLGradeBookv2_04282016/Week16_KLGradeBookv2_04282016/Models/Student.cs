@@ -13,9 +13,7 @@ namespace Week16_KLGradeBookv2_04282016.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    [DisplayColumn("LastName")]
     [MetadataType(typeof(StudentMetaData))]
-
     public partial class Student
     {
 

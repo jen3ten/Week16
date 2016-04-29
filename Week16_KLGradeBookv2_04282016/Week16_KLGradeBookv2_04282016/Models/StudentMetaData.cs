@@ -16,6 +16,7 @@ namespace Week16_KLGradeBookv2_04282016.Models
         [Display(Name = "Last Name")]
         [Required(ErrorMessage = "Last Name is required.")]
         public object LastName;
+
     }
 
 }
