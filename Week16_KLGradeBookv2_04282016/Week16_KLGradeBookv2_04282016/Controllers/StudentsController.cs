@@ -15,10 +15,29 @@ namespace Week16_KLGradeBookv2_04282016.Controllers
         private GradebookDBv2Entities1 db = new GradebookDBv2Entities1();
 
         // GET: Students
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+           // return View(db.Students.ToList());
+        //}
+
+        // GET: Students
+        public ActionResult Index(string searchBy, string search)
         {
-            return View(db.Students.ToList());
+            if (searchBy == "FirstName")
+            {
+                return View(db.Students.Where(x => x.FirstName.StartsWith(search)).ToList());
+
+            }
+            else if (searchBy == "LastName")
+            {
+                return View(db.Students.Where(x => x.LastName.StartsWith(search)).ToList());
+            }
+            else
+            {
+                return View(db.Students.ToList());
+            }
         }
+
 
         // GET: Students/Details/5
         public ActionResult Details(int? id)
