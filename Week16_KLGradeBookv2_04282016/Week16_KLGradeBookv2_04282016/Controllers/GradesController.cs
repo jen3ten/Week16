@@ -40,7 +40,7 @@ namespace Week16_KLGradeBookv2_04282016.Controllers
         public ActionResult Create()
         {
             ViewBag.AssignmentID = new SelectList(db.Assignments, "AssignmentID", "Title");
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName");
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FullName");
             return View();
         }
 

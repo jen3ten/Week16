@@ -14,11 +14,13 @@ namespace Week16_KLGradeBookv2_04282016.Controllers
     {
         private GradebookDBv2Entities1 db = new GradebookDBv2Entities1();
 
+        /* 
         // GET: Students
-        //public ActionResult Index()
-        //{
-           // return View(db.Students.ToList());
-        //}
+        public ActionResult Index()
+        {
+            return View(db.Students.ToList());
+        }
+        */
 
         // GET: Students
         public ActionResult Index(string searchBy, string search)

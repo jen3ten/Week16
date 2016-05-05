@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace Week16_KLGradeBookv2_04282016.Models
 {
-    public class GradesMetaData
+    [MetadataType(typeof(GradesMetaData))]
+    public partial class Grade
+    {
+
+    }
+
+    sealed class GradesMetaData
     {
         [Display(Name = "Points Earned")]
-        public object PointsEarned;
+        public int PointsEarned { get; set; }
 
         [Display(Name ="Letter Grade")]
-        public object Grade1;
+        public string Grade1 { get; set; }
 
         [Display(Name = "Student Name")]
-        public object StudentID;
+        public int StudentID { get; set; }
 
         [Display(Name = "Assignment Name")]
-        public object AssignmentID;
+        public int AssignmentID { get; set; }
+
 
     }
 }
