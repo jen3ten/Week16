@@ -319,6 +319,8 @@
     <Content Include="Views\tblStudents\Details.cshtml" />
     <Content Include="Views\tblStudents\Edit.cshtml" />
     <Content Include="Views\tblStudents\Index.cshtml" />
+    <Content Include="Views\tblStudents\Evans.cshtml" />
+    <Content Include="Views\tblStudents\Highland.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

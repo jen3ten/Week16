@@ -14,11 +14,57 @@ namespace Week16_SchoolDBPractice_04262016.Controllers
     {
         private SchoolDBEntities db = new SchoolDBEntities();
 
+        public ActionResult Evans()
+        {
+            var evansStudents = from students in db.tblStudents
+                                where students.LastName == "Evans"
+                                select students;
+            return View(evansStudents.ToList());
+        }
+
+        public ActionResult Highland()
+        {
+
+            var highlandStudents = from students in db.tblStudents
+                                   where students.SchoolID == 1
+                                   select students;
+            return View(highlandStudents.ToList());
+        }
+        
         // GET: tblStudents
-        public ActionResult Index()
+        /*public ActionResult Index()
         {
             var tblStudents = db.tblStudents.Include(t => t.tblSchool);
             return View(tblStudents.ToList());
+        }*/
+
+        public ActionResult Index(string id)
+        {
+
+            var tblStudents = db.tblStudents.Include(t => t.tblSchool);
+
+            switch (id)
+            {
+                case "FirstName":
+                    tblStudents = db.tblStudents.OrderBy(t => t.FirstName);
+                    break;
+                case "LastName":
+                    tblStudents = db.tblStudents.OrderBy(t => t.LastName);
+                    break;
+                case "Grade":
+                    tblStudents = db.tblStudents.OrderBy(t => t.Grade);
+                    break;
+                case "School":
+                    tblStudents = db.tblStudents.OrderBy(t => t.tblSchool.Name);
+                    break;
+                default:
+                    break;
+            }
+
+
+            return View(tblStudents.ToList());
+
+
         }
 
         // GET: tblStudents/Details/5

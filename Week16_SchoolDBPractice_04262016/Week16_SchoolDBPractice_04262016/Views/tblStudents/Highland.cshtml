@@ -1,38 +1,32 @@
 ﻿@model IEnumerable<Week16_SchoolDBPractice_04262016.Models.tblStudent>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Highland";
 }
 
-<h2>Index</h2>
+<h2>Highland</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-
-
 <p>
-    @Html.ActionLink("Show All Evans", "Evans", "tblStudents")
-</p>
-
-<p>
-    @Html.ActionLink("Show All Highland", "Highland", "tblStudents")
+    @Html.ActionLink("RESET", "Index", "tblStudents")
 </p>
 
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("First Name", "Index", "tblStudents", new { id = "FirstName" }, null)
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
-            @Html.ActionLink("Last Name","Index","tblStudents", new { id = "LastName" }, null)
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.ActionLink("Grade", "Index", "tblStudents", new { id = "Grade" }, null)
+            @Html.DisplayNameFor(model => model.Grade)
         </th>
         <th>
-            @Html.ActionLink("School", "Index", "tblStudents", new { id = "School" }, null)
+            @Html.DisplayNameFor(model => model.tblSchool.Name)
         </th>
         <th></th>
     </tr>
